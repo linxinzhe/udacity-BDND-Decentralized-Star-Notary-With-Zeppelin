@@ -56,7 +56,7 @@ contract StarNotary is ERC721 {
         }
     }
 
-    function checkIfStarExist(uint256 _tokenId) private returns (bool){
+    function checkIfStarExist(uint256 _tokenId) public view returns (bool){
         Coordinator memory coordinator = tokenIdToStarInfo[_tokenId].coordinator;
         return coordinatorTaken[uint256(keccak256(coordinator.ra, coordinator.dec, coordinator.mag, coordinator.cent))];
     }
