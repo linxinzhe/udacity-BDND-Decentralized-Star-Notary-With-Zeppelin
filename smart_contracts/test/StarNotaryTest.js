@@ -8,10 +8,11 @@ contract('StarNotary', accounts => {
 
     describe('can create a star', () => {
         it('can create a star and get its name', async function () {
+            const tokenId=1001;
+            await this.contract.createStar("Star power 103!", "I love my wonderful star", "ra_032.155", "dec_121.874", "mag_245.978","", tokenId, {from: accounts[0]});
 
-            await this.contract.createStar('awesome star!', 1, {from: accounts[0]});
-
-            assert.equal(await this.contract.tokenIdToStarInfo(1), 'awesome star!');
+            const starInfo = await this.contract.tokenIdToStarInfo(tokenId);
+            assert.equal(starInfo[0], 'Star power 103!');
         })
     });
 
@@ -20,11 +21,11 @@ contract('StarNotary', accounts => {
         let user2 = accounts[2];
         let randomMaliciousUser = accounts[3];
 
-        let starId = 1;
+        let starId = 1001;
         let starPrice = web3.toWei(.01, "ether");
 
         beforeEach(async function () {
-            await this.contract.createStar('awesome star!', starId, {from: user1});
+            await this.contract.createStar("Star power 103!", "I love my wonderful star", "ra_032.155", "dec_121.874", "mag_245.978","", starId, {from: user1});
         });
 
         it('user1 can put up their star for sale', async function () {
